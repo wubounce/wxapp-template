@@ -1,6 +1,9 @@
-
 {
+  "component": true,
   "usingComponents": {
-    "user": "../../components/user/user"
-  }
+    "user": "../../components/user/user",
+    "i-notice-bar": "../../components/notice-bar/index",
+    "i-icon": "../../components/icon/index"
+  },
+  "navigationBarTitleText": "首页"
 }

@@ -16,6 +16,7 @@ Page({
 		duration: 1000,
 		userList: [],
 		total: 0,
+		userPhone: '18311017120',
 	},
 	// 事件处理函数
 	bindViewTap () {

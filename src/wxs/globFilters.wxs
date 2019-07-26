@@ -1,0 +1,9 @@
+
+const formatPhone = (val) => {
+	let phone_num = val ? val.substring(0, 3) + '****' + val.substring(7) : '';
+	return phone_num;
+};
+
+module.exports = {
+	formatPhone,
+};

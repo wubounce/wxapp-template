@@ -1,6 +1,6 @@
 <!-- index.wxml -->
 <import src="../../wxml/motto/motto.wxml" />
-<wxs src="../../wxs/powered.wxs" module="powered" />
+<wxs src="../../wxs/globFilters.wxs" module="globFilters" />
 <!-- <view class="container">
   <view bindtap="bindViewTap">
     <user avatarUrl="{{userInfo.avatarUrl}}" nickName="{{userInfo.nickName}}"></user>
@@ -19,6 +19,43 @@
     </swiper-item>
   </block>
 </swiper>
-<view>
-  <view wx:for="{{userList}}" wx:key="*this">{{item.name}}{{item.age}}</view>
+<view class="index_gird">
+  <text class="grid">优惠活动</text>
+  <text class="grid invite">
+    <text>邀请好友赚现金</text>
+  </text>
+  <text class="grid">今日油价</text>
+  <text class="grid">关于我们</text>
 </view>
+<i-notice-bar icon="systemprompt">
+  【系统公告】{{globFilters.formatPhone('18311017120')}}充值了9.3折套餐
+</i-notice-bar>
+<view class="recharge">
+  <view>
+    <view>
+      <i-icon type="shop_fill" size="28" color="#fff" />
+    </view>
+    <view class="description">
+      <view class="title">及时充值</view>
+      <view class="discount">9.9折</view>
+      <view class="dec_short">闪电到账，及时充值</view>
+    </view>
+  </view>
+  <view>
+    <view>
+      <i-icon type="video_fill" size="28" color="#fff" />
+    </view>
+    <view class="description">
+      <view class="title">套餐充值</view>
+      <view class="discount">9.0折</view>
+      <view class="dec_short">限时折扣，全靠手速</view>
+    </view>
+  </view>
+</view>
+<view class="location">
+  <navigator url="/pages/location/location?title=navigate" hover-class="none">
+    <i-icon type="coordinates" size="28" color="#f00" />
+    <text>距离你最近的加油站：中石化/中石油  前往查看>></text>
+  </navigator>
+</view>
+<view class="active"></view>
