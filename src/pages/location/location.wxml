@@ -1,6 +1,6 @@
 <view class='container-layout'>
     <view class="map-wrapper">
-        <map id="map" scale="16" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" bindregionchange="regionchange" show-location="true"></map>
+        <map id="map" scale="16" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" polyline="{{polyline}}" bindmarkertap="markertap" bindregionchange="regionchange" show-location="true"></map>
         <!-- 定位当前位置 -->
         <cover-view class='cover-layout' bindtap='controltap'>
             <cover-image class='self-location' src='../../images/location-control.png'></cover-image>
@@ -20,7 +20,7 @@
         </view>
     </scroll-view>
     <view class="button_wrapper">
-        <button bindtap="setDisabled">查看路线</button>
+        <button bindtap="lookRouter">查看路线</button>
         <button bindtap="openOtherMap">本机地图</button>
         <button bindtap="setLoading">报错</button>
     </view>
