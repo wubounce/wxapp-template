@@ -1,86 +1,117 @@
-
+let schoolData = require("./data");
 Page({
 	data: {
-		markers: [{
-			iconPath: 'https://static.qiekj.com/h5/miniApp/home/shop.png',
-			'name': '千珏店铺7号',
-			'address': '联合大厦AB座停车场(府苑新村)联合大厦1005联营',
-			'longitude': 120.097252,
-			'latitude': 30.266409,
-			'id': '427427362548744875',
-		},
-		{
-			iconPath: 'https://static.qiekj.com/h5/miniApp/home/shop.png',
-			'name': '千珏店铺7号',
-			'address': '联合大厦AB座停车场(府苑新村)联合大厦1005联营',
-			'longitude': 120.0974884033203,
-			'latitude': 30.26712989807129,
-			'id': '427427362548744875',
-		},
-		{
-			iconPath: 'https://static.qiekj.com/h5/miniApp/home/shop.png',
-			'name': '千珏店铺7号',
-			'address': '联合大厦AB座停车场(府苑新村)联合大厦1005联营',
-			'longitude': 120.097817,
-			'latitude': 30.266069,
-			'id': '427427362548744875',
-		},
-		{
-			iconPath: 'https://static.qiekj.com/h5/miniApp/home/shop.png',
-			'name': '千珏店铺7号',
-			'address': '联合大厦AB座停车场(府苑新村)联合大厦1005联营',
-			'longitude': 120.104475,
-			'latitude': 30.277817,
-			'id': '427427362548744875',
-		}],
-		polyline: [{
-			points: [{
-				longitude: 113.3245211,
-				latitude: 23.10229,
-			}, {
-				longitude: 113.324520,
-				latitude: 23.21229,
-			}],
-			color: '#FF0000DD',
-			width: 2,
-			dottedLine: true,
-		}],
-		controls: [{
-			id: 1,
-			iconPath: '/resources/location.png',
-			position: {
-				left: 0,
-				top: 300 - 50,
-				width: 50,
-				height: 50,
-			},
-			clickable: true,
-		}],
+		//地图高度
+		mapHeight: 0,
+		centerLatitude: 0,
+		centerLongitude: 0,
+		markers: [],
+		controls: [
+			{
+				id: 1,
+				iconPath: "../../images/location-control.png",
+				position: {
+					left: 0,
+					top: 10,
+					width: 40,
+					height: 40
+				},
+				clickable: true
+			}
+		]
 	},
-	onLoad () {
+	onReady(e) {
+		console.log(schoolData);
+		// 使用 wx.createMapContext 获取 map 上下文
+		// this.mapCtx = wx.createMapContext("map");
+	},
+	onLoad() {
+		let systemInfo = wx.getSystemInfoSync();
+		this.setData({
+			mapHeight: systemInfo.windowHeight,
+		});
+		this.initmap();
+	},
+	initmap() {
 		wx.getLocation({
-			type: 'gcj02', // 返回可以用于openLocation的经纬度
-			success: function (res) {
+			type: "gcj02", //返回可以用于wx.openLocation的经纬度
+			success: res => {
 				console.log(res);
-
-				var latitude = res.latitude;
-				var longitude = res.longitude;
-				var speed = res.speed;
-				var accuracy = res.accuracy;
-				wx.openLocation({
-					longitude: Number(res.longitude),
-					latitude: Number(res.latitude),
+				let latitude = res.latitude;
+				let longitude = res.longitude;
+				let marker = this.createMarker(res);
+				this.setData({
+					centerLatitude: longitude,
+					centerLongitude: latitude,
+					markers: this.getSchoolMarkers()
 				});
-			},
+				this.moveToLocation(); //移动到中心点
+			}
 		});
 	},
-	regionchange (e) {
+	regionchange(e) {
 		console.log(e.type);
+		// 改变中心点位置
+		if (e.type === "end") {
+			this.getCenterLocation();
+		}
 	},
-	markertap (e) {
-		console.log(e.markerId);
+	markertap(e) {
+		console.log(e);
 	},
-	controltap (e) {
+	controltap(e) {
 		console.log(e.controlId);
+		this.moveToLocation();
 	},
+	getSchoolMarkers() {
+		let markers = [];
+		for (let item of schoolData) {
+			let marker = this.createMarker(item);
+			markers.push(marker);
+		}
+		return markers;
+	},
+	moveToLocation() {
+		var mapCtx = wx.createMapContext("map");
+		mapCtx.moveToLocation();
+	},
+	createMarker(point) {
+		let latitude = point.latitude;
+		let longitude = point.longitude;
+		let marker = {
+			iconPath: "../../images/location.png",
+			id: point.id || 0,
+			name: point.name || "",
+			latitude: latitude,
+			longitude: longitude,
+			width: 25,
+			height: 48
+		};
+		return marker;
+	},
+	/**
+	 * 得到中心点坐标
+	 */
+	getCenterLocation() {
+		//mapId 就是你在 map 标签中定义的 id
+		var mapCtx = wx.createMapContext("map");
+		mapCtx.getCenterLocation({
+			success: res => {
+				console.log("getCenterLocation----------------------->");
+				console.log(res);
+				this.updateCenterLocation(res.latitude, res.longitude);
+				// this.regeocodingAddress();//逆地址解析
+				// this.queryMarkerInfo(); //获取 marker 信息
+			}
+		});
+	},
+	/**
+	 * 更新上传坐标点
+	 */
+	updateCenterLocation(latitude, longitude) {
+		this.setData({
+			centerLatitude: latitude,
+			centerLongitude: longitude
+		});
+	}
 });

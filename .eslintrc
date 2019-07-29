@@ -19,16 +19,6 @@
     }
   },
   "rules": {
-    "space-before-function-paren": [
-      "error",
-      {
-        "anonymous": "always",
-
-        "named": "always",
-
-        "asyncArrow": "always"
-      }
-    ],
     "import/no-unresolved": [
       "error",
       {
@@ -38,6 +28,8 @@
     "max-len": ["error", { "code": 300 }],
     "brace-style": 0,
     "curly": 0,
-    "arrow-parens": 0
+    "arrow-parens": 0,
+    "space-before-blocks":0,
+    "space-before-function-paren":0
   }
 }
