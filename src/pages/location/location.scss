@@ -1,3 +1,96 @@
-.container {
-	padding: 20rpx;
+.container-layout {
+	width: 100%;
+	height: 100vh;
+}
+
+.map-wrapper {
+	width: 100%;
+	height: 70%;
+	position: relative;
+}
+map {
+	height: 100%;
+	width: 100%;
+}
+.cover-layout {
+	width: 100rpx;
+	height: 100rpx;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.self-location {
+	width: 76rpx;
+	height: 76rpx;
+}
+
+.search-scroll {
+	width: 100%;
+	height: 20%;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.address-item-wrapper {
+	width: 100%;
+	height: auto;
+}
+
+.address-item {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	margin-top: 10rpx;
+	position: relative;
+}
+
+.address-item:active {
+	background-color: #eee;
+}
+
+.item-address {
+	width: 100%;
+	height: 120rpx;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.item-image {
+	width: 24rpx;
+	height: 24rpx;
+	margin-left: 54rpx;
+}
+
+.item-detail-address {
+	font-size: 22rpx;
+	color: #999;
+	margin-top: 10rpx;
+}
+
+.item-address-layout {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 100%;
+	margin-left: 20rpx;
+}
+
+.item-title {
+	font-size: 30rpx;
+	color: #333;
+}
+.button_wrapper {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	button {
+		width: 220rpx;
+		font-size: 28rpx;
+	}
 }

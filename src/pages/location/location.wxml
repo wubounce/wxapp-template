@@ -1,11 +1,27 @@
-
-<view class='map-wrapper' style='height:{{mapHeight}}'>
-<map id="map"  
-scale="16" 
-controls="{{controls}}" 
-bindcontroltap="controltap" 
-markers="{{markers}}" 
-bindmarkertap="markertap" 
-bindregionchange="regionchange" 
-show-location="true" style="width: 100%; height:{{mapHeight}}px" ></map>
+<view class='container-layout'>
+    <view class="map-wrapper">
+        <map id="map" scale="16" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" bindregionchange="regionchange" show-location="true"></map>
+        <!-- 定位当前位置 -->
+        <cover-view class='cover-layout' bindtap='controltap'>
+            <cover-image class='self-location' src='../../images/location-control.png'></cover-image>
+        </cover-view>
+    </view>
+    <scroll-view class='search-scroll' scroll-y='true' wx:if='{{markers.length != 0}}'>
+        <view class='address-item-wrapper' wx:for='{{markers}}' wx:for-item='item' wx:key='index'>
+            <view class='address-item' bindtap='itemAddressClick' id='{{index}}'>
+                <view class='item-address'>
+                    <view class='item-address-layout'>
+                        <text class='item-title'>{{item.name}}</text>
+                        <text class='item-detail-address'>{{item.address}}</text>
+                    </view>
+                </view>
+                <view class='line-item'></view>
+            </view>
+        </view>
+    </scroll-view>
+    <view class="button_wrapper">
+        <button bindtap="setDisabled">查看路线</button>
+        <button bindtap="openOtherMap">本机地图</button>
+        <button bindtap="setLoading">报错</button>
+    </view>
 </view>
